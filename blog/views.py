@@ -31,7 +31,6 @@ class IndexView(View):
 
         for blog in all_blog:
             blog.content = markdown.markdown(blog.content[:80])
-            print(blog.content)
 
         try:
             page = request.GET.get('page', 1)
