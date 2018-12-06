@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link href="{% static 'lib/fancybox/source/jquery.fancybox.css' %}" rel="stylesheet" type="text/css" />
+<link href="{% static 'lib/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css" />
+
+<link href="{% static 'css/main.css' %}" rel="stylesheet" type="text/css" />
+  <meta name="keywords" content="Hexo, NexT" />
+  <link rel="alternate" href="{% static 'atom.xml' %}" title="镍铬合金的博客!" type="application/atom+xml" />
+  <link rel="shortcut icon" type="{% static 'images/x-icon' %}" href="favicon.ico" />
+<meta name="description" content="最近系统的学习了一下git, 虽然只是了解了最基本的用法,再此还是记录一下, 以备以后忘记查阅,学习教程来自https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000,感谢廖老师.  Git是目前世界上最先进的分布式版本控制系统,对于我们编写代码的保存,分享都特别有用,可以说是程序员必须要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git学习总结">
+<meta property="og:url" content="http://yoursite.com/2017/12/25/git学习总结/index.html">
+<meta property="og:site_name" content="镍铬合金的博客!">
+<meta property="og:description" content="最近系统的学习了一下git, 虽然只是了解了最基本的用法,再此还是记录一下, 以备以后忘记查阅,学习教程来自https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000,感谢廖老师.  Git是目前世界上最先进的分布式版本控制系统,对于我们编写代码的保存,分享都特别有用,可以说是程序员必须要">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-25T14:12:51.037Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git学习总结">
+<meta name="twitter:description" content="最近系统的学习了一下git, 虽然只是了解了最基本的用法,再此还是记录一下, 以备以后忘记查阅,学习教程来自https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000,感谢廖老师.  Git是目前世界上最先进的分布式版本控制系统,对于我们编写代码的保存,分享都特别有用,可以说是程序员必须要">
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+  <link rel="canonical" href="http://yoursite.com/2017/12/25/git学习总结/"/>
+  <title>
+      {% block title %}
+      git学习总结 | 镍铬合金的博客!
+      {% endblock %}
+  </title>
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/Niejinge"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="{% url 'index' %}"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">镍铬合金的博客!</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">情义小孟常，百里擒飞狐！</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="{% url 'index' %}" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+
+
+        <li class="menu-item menu-item-archives">
+          <a href="{% url 'archive' %}" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+
+        <li class="menu-item menu-item-archives">
+            <a href="{% url 'tags' %}" rel="section">
+
+                <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+
+                标签
+            </a>
+        </li>
+    </ul>
+  
+
+  
+</nav>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+      {% block content %}
+      {% endblock %}
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <p class="site-author-name" itemprop="name">GoldBro</p>
+            <p class="site-description motion-element" itemprop="description">半路出家的软件工程研究生。。</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+            <div class="site-state-item site-state-posts">
+            
+              <a href="{% url 'archive' %}">
+            
+                <span class="site-state-item-count">{{ cate_nums }}</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+            
+            
+            <div class="site-state-item site-state-tags">
+                <a href="{% url 'tags' %}" >
+                    <span class="site-state-item-count">{{ tag_nums }}</span>
+                    <span class="site-state-item-name">标签</span>
+                </a>
+            </div>
+
+        </nav>
+        
+          <div class="feed-link motion-element">
+            <a href="{% url 'rss' %}" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li></ol></div>
+            
+          </div>
+        </section>
+      <!--/noindex-->
+
+    </div>
+  </aside>
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">GoldBro</span>
+
+  
+</div>
+
+
+  <div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv">{{ visit_nums }}</span>
+</span>
+</div>
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.2</div>
+
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共{{ all_counts }}k字</span>
+</div>
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+
+  </div>
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+  <script type="text/javascript" src="{% static 'lib/jquery/index.js' %}"></script>
+  <script type="text/javascript" src="{% static 'lib/fastclick/lib/fastclick.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'lib/jquery_lazyload/jquery.lazyload.js' %}"></script>
+  <script type="text/javascript" src="{% static 'lib/velocity/velocity.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'lib/velocity/velocity.ui.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'lib/fancybox/source/jquery.fancybox.pack.js' %}"></script>
+  <script type="text/javascript" src="{% static 'lib/canvas-nest/canvas-nest.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/src/utils.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/src/motion.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/src/scrollspy.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/src/post-details.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/src/bootstrap.js' %}"></script>
+</body>
+</html>

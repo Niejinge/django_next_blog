@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ category_name }}
+{% endblock %}
+
+{% block content %}
+    <div class="content-wrap">
+        <div id="content" class="content">
+            <section id="posts" class="posts-collapse">
+                <span class="archive-move-on"></span>
+                <div>
+                    <li><strong>{{ category_name }}</strong></li>
+                </div>
+                <ul>
+                    {% for blog in category_blogs.object_list %}
+                        <li>
+                            <a class="post-title-link" href="{% url 'blog' blog.id %}" itemprop="url">
+                                <span itemprop="name">{{ blog.title }}  &nbsp;&nbsp(<time>{{ blog.create_time|date:"m-d" }}</time>)</span>
+                                <br/>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+            <nav class="pagination">
+
+                {% if category_blogs.has_previous %}
+                    <a class="extend prev" rel="prev" href="?{{ category_blogs.previous_page_number.querystring }}">上一页</a>
+                {% endif %}
+                {% for page in category_blogs.pages %}
+                    {% if page %}
+                        {% ifequal page category_blogs.number %}
+                            <span class="page-number current">{{ category_blogs.number }}</span>
+                        {% else %}
+                            <span class="page-number"><a href="?{{ page.querystring }}">{{ page }}</a></span>
+                        {% endifequal %}
+                    {% else %}
+                        <span class="page-number">...</span>
+                    {% endif %}
+                {% endfor %}
+                {% if category_blogs.has_next %}
+                    <a class="extend next" rel="next" href="?{{ category_blogs.next_page_number.querystring }}">下一页</a>
+                {% endif %}
+
+            </nav>
+        </div>
+    </div>
+
+{% endblock %}
