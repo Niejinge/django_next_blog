@@ -9,15 +9,14 @@
     <div id="content" class="content">
         <section id="posts" class="posts-collapse">
             <span class="archive-move-on"></span>
-            <span class="archive-page-counter">非常好! 目前共计 {{ blog_nums }} 篇日志。 继续努力。</span>
-            <br/>
+            <span class="archive-page-counter"><h2><li>非常好! 目前共计 {{ blog_nums }} 篇日志。 继续努力。</li></h2></span>
             <br/>
         {% regroup all_blog.object_list by create_time.year as dates_by_year %}
 
         {% for year in dates_by_year %}
             {% regroup year.list by create_time.month as dates_by_month %}
             {% for month in dates_by_month %}
-                <li><strong>{{ year.grouper }}-{{ month.grouper }}</strong></li>
+                <h4><li>{{ year.grouper }}-{{ month.grouper }}</li></h4>
                 <ul>
                     {% for blog in month.list %}
                         <li><a href="{% url 'blog' blog.id %}">{{ blog.title }}</a>></li>
