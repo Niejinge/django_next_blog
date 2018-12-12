@@ -30,7 +30,11 @@ class IndexView(View):
         visit_nums = count_nums.visit_nums
 
         for blog in all_blog:
-            blog.content = markdown.markdown(blog.content[:80])
+            blog.content = markdown.markdown(blog.content[:80],
+                                             extensions=[
+                                                 'markdown.extensions.extra',
+                                                 'markdown.extensions.codehilite',
+                                             ])
 
         try:
             page = request.GET.get('page', 1)
@@ -161,8 +165,13 @@ class BlogDetailView(View):
         blog = get_object_or_404(Blog, pk=blog_id)
         blog.click_nums += 1
         blog.save()
-        blog.content = markdown.markdown(blog.content)
+        md = markdown.Markdown(extensions=[
+             'markdown.extensions.extra',
+             'markdown.extensions.codehilite',
+             'markdown.extensions.toc',
+         ])
 
+        blog.content = md.convert(blog.content)
         count_nums = Counts.objects.get(id=1)
         blog_nums = count_nums.blog_nums
         cate_nums = count_nums.category_nums
@@ -200,6 +209,7 @@ class BlogDetailView(View):
             'tag_nums': tag_nums,
             'visit_nums': visit_nums,
             'all_counts': all_counts,
+            'toc': md.toc,
         })
 
 
