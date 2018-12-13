@@ -3,6 +3,6 @@
 
 **实例地址:**
  
- [镍铬合金的博客](niegehejin.xyz)
+ [镍铬合金的博客](http://niegehejin.xyz)
 
 
