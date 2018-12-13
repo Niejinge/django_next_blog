@@ -2,6 +2,7 @@ import markdown
 from django.shortcuts import render, get_object_or_404
 from django.views import View
 from pure_pagination import PageNotAnInteger, Paginator
+from django.utils.html import strip_tags
 
 from .models import Blog, Counts, Category, Tag
 
@@ -30,11 +31,12 @@ class IndexView(View):
         visit_nums = count_nums.visit_nums
 
         for blog in all_blog:
-            blog.content = markdown.markdown(blog.content[:80],
-                                             extensions=[
-                                                 'markdown.extensions.extra',
-                                                 'markdown.extensions.codehilite',
-                                             ])
+
+            md = markdown.Markdown(extensions=[
+                'markdown.extensions.extra',
+                'markdown.extensions.codehilite',
+            ])
+            blog.content = strip_tags(md.convert(blog.content))[:88]
 
         try:
             page = request.GET.get('page', 1)
