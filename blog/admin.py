@@ -36,7 +36,7 @@ class BlogAdmin(admin.ModelAdmin):
         obj_category.number = category_number - 1
         obj_category.save()
 
-        obj_tag_list = obj.tag.all()
+        obj_tag_list = obj.tags.all()
         for obj_tag in obj_tag_list:
             tag_number = obj_tag.blog_set.count()
             obj_tag.number = tag_number - 1

@@ -36,7 +36,7 @@ class IndexView(View):
                 'markdown.extensions.extra',
                 'markdown.extensions.codehilite',
             ])
-            blog.content = strip_tags(md.convert(blog.content))[:88]
+            blog.content = strip_tags(md.convert(blog.content))[:160]
 
         try:
             page = request.GET.get('page', 1)
